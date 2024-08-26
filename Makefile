@@ -6,20 +6,20 @@ build:
 	@echo "Building Docker image..."
 	docker build -t $(IMAGE_NAME) .
 
-# Run the Docker container
-run:
+# Run the Docker container in development mode
+run: rm
 	@echo "Running Docker container in development mode..."
-	docker run -p 3000:3000 -v $(PWD)/frontend:/app/frontend $(IMAGE_NAME)
+	docker run --name $(IMAGE_NAME) -p 3000:3000 -v $(PWD)/frontend:/app -v /app/node_modules $(IMAGE_NAME)
 
 # Stop the Docker container
 stop:
 	@echo "Stopping Docker container..."
-	docker stop interesting_robinson # 停止したいコンテナ名を指定
+	docker stop $(IMAGE_NAME)
 
 # Remove the Docker container
 rm: stop
 	@echo "Removing Docker container..."
-	docker rm interesting_robinson # 削除したいコンテナ名を指定
+	docker rm $(IMAGE_NAME)
 
 # Remove the Docker image
 rmi: rm
