@@ -1,5 +1,4 @@
 import React from 'react';
-import ClientLayout from '../components/ClientLayout';
 import './globals.css';
 
 export const metadata = {
@@ -13,12 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <ClientLayout>
-          {children}
-        </ClientLayout>
-      </body>
+    <html lang="ja">
+      <body>{children}</body>
     </html>
   );
 }

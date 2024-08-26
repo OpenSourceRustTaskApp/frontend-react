@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, Bell, User, ChevronDown, Settings, LogOut } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -7,15 +8,14 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  // This would typically come from your auth context or state management
-  const user = {
-    name: 'John Doe',
-    image: '/images/boy.png'
-  };
+  const router = useRouter();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    router.push('/auth/login');
   };
 
   return (
@@ -36,14 +36,10 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             onClick={toggleDropdown}
           >
             <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
-              {user.image ? (
-                <img src={user.image} alt={user.name} className="w-8 h-8 rounded-full" />
-              ) : (
-                <User size={20} />
-              )}
+              <User size={20} />
             </div>
             <div className="ml-2 flex items-center">
-              <p className="text-sm font-semibold">{user.name}</p>
+              <p className="text-sm font-semibold">John Doe</p>
               <ChevronDown size={16} className="ml-1" />
             </div>
           </div>
@@ -53,10 +49,13 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
                 <Settings size={16} className="mr-2" />
                 Settings
               </a>
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+              >
                 <LogOut size={16} className="mr-2" />
                 Logout
-              </a>
+              </button>
             </div>
           )}
         </div>
