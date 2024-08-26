@@ -19,7 +19,7 @@ stop:
 # Remove the Docker container
 rm: stop
 	@echo "Removing Docker container..."
-	docker rm $(IMAGE_NAME)
+	-docker rm $(IMAGE_NAME)
 
 # Remove the Docker image
 rmi: rm

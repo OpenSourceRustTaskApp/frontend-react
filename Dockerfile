@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY frontend/package*.json ./
 
-# Install dependencies
+# Install all dependencies
 RUN npm install
 
 # Expose port 3000
