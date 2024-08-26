@@ -14,12 +14,12 @@ run:
 # Stop the Docker container
 stop:
 	@echo "Stopping Docker container..."
-	docker stop interesting_robinson
+	docker stop interesting_robinson # 停止したいコンテナ名を指定
 
 # Remove the Docker container
 rm: stop
 	@echo "Removing Docker container..."
-	docker rm interesting_robinson 
+	docker rm interesting_robinson # 削除したいコンテナ名を指定
 
 # Remove the Docker image
 rmi: rm
@@ -29,4 +29,9 @@ rmi: rm
 # Clean up: stop, remove container, and remove image
 clean: rmi
 
-.PHONY: build run stop rm rmi clean
+# Display the main program directory structure
+tree:
+	@echo "Main program directory structure:"
+	tree -I 'node_modules'
+
+.PHONY: build run stop rm rmi clean tree
