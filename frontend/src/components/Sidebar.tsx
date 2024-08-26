@@ -1,12 +1,34 @@
 import React from 'react';
 import Link from 'next/link';
-import { Home, Settings, HelpCircle } from 'lucide-react';
+import Image from 'next/image';
+import { Home, Settings, HelpCircle, User } from 'lucide-react';
 
 const Sidebar = () => {
+  // This would typically come from your auth context or state management
+  const user = {
+    name: 'John Doe',
+    image: '/images/boy.png'
+  };
+
   return (
-    <aside className="bg-gray-800 text-white w-64 min-h-screen p-4">
-      <nav>
-        <ul className="space-y-2">
+    <aside className="bg-gray-800 text-white w-64 min-h-screen flex flex-col">
+      <div className="p-4 border-b border-gray-700">
+        <div className="flex items-center">
+          <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
+            {user.image ? (
+              <img src={user.image} alt={user.name} className="w-10 h-10 rounded-full" />
+            ) : (
+              <User size={24} />
+            )}
+          </div>
+          <div className="ml-3">
+            <p className="font-semibold">{user.name}</p>
+            <p className="text-sm text-gray-400">Online</p>
+          </div>
+        </div>
+      </div>
+      <nav className="flex-grow">
+        <ul className="space-y-2 p-4">
           <li>
             <Link href="/" className="flex items-center space-x-2 p-2 hover:bg-gray-700 rounded">
               <Home size={20} />
