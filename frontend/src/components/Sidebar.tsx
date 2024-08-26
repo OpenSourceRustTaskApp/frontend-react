@@ -23,7 +23,6 @@ const Sidebar = () => {
           </div>
           <div className="ml-3">
             <p className="font-semibold">{user.name}</p>
-            <p className="text-sm text-gray-400">Online</p>
           </div>
         </div>
       </div>
