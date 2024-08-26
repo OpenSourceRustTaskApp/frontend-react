@@ -8,8 +8,8 @@ build:
 
 # Run the Docker container
 run:
-	@echo "Running Docker container..."
-	docker run -p 3000:3000 $(IMAGE_NAME)
+	@echo "Running Docker container in development mode..."
+	docker run -p 3000:3000 -v $(PWD)/frontend:/app/frontend $(IMAGE_NAME)
 
 # Stop the Docker container
 stop:
