@@ -1,37 +1,46 @@
-# Define the Docker image name
-IMAGE_NAME := my-app-image
+# Makefile for Docker and project management
 
-# Default target: build the Docker image
+# Variables
+DOCKER_COMPOSE = docker-compose
+
+# Docker commands
+.PHONY: up down build logs shell clean
+
+up:
+	$(DOCKER_COMPOSE) up -d
+
+down:
+	$(DOCKER_COMPOSE) down
+
 build:
-	@echo "Building Docker image..."
-	docker build -t $(IMAGE_NAME) .
+	$(DOCKER_COMPOSE) build
 
-# Run the Docker container in development mode
-run: rm
-	@echo "Running Docker container in development mode..."
-	docker run --name $(IMAGE_NAME) -p 3000:3000 -v $(PWD)/frontend:/app -v /app/node_modules $(IMAGE_NAME)
+logs:
+	$(DOCKER_COMPOSE) logs -f
 
-# Stop the Docker container
-stop:
-	@echo "Stopping Docker container..."
-	docker stop $(IMAGE_NAME)
+shell:
+	$(DOCKER_COMPOSE) exec frontend /bin/sh
 
-# Remove the Docker container
-rm: stop
-	@echo "Removing Docker container..."
-	-docker rm $(IMAGE_NAME)
+clean:
+	$(DOCKER_COMPOSE) down -v --rmi all --remove-orphans
 
-# Remove the Docker image
-rmi: rm
-	@echo "Removing Docker image..."
-	docker rmi $(IMAGE_NAME)
+# Project structure
+.PHONY: tree
 
-# Clean up: stop, remove container, and remove image
-clean: rmi
-
-# Display the main program directory structure
 tree:
 	@echo "Main program directory structure:"
-	tree -I 'node_modules'
+	@tree -I 'node_modules'
 
-.PHONY: build run stop rm rmi clean tree
+# Help
+.PHONY: help
+
+help:
+	@echo "Available commands:"
+	@echo "  make up              - Start Docker containers"
+	@echo "  make down            - Stop Docker containers"
+	@echo "  make build           - Build Docker images"
+	@echo "  make logs            - View Docker logs"
+	@echo "  make shell           - Open a shell in the frontend container"
+	@echo "  make clean           - Remove all Docker resources"
+	@echo "  make tree            - Display project directory structure"
+	@echo "  make help            - Show this help message"
