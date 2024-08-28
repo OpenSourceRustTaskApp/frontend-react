@@ -10,6 +10,9 @@ COPY frontend/package*.json ./
 # Install all dependencies
 RUN npm install
 
+# Copy the rest of the application code
+COPY frontend .
+
 # Expose port 3000
 EXPOSE 3000
 

@@ -1,10 +1,8 @@
+'use client';
+
 import React from 'react';
 import './globals.css';
-
-export const metadata = {
-  title: 'Dashboard',
-  description: 'My awesome dashboard',
-};
+import { AuthProvider } from '../contexts/AuthContext';
 
 export default function RootLayout({
   children,
@@ -13,7 +11,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
